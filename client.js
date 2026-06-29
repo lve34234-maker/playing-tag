@@ -26,7 +26,7 @@ const FOOT_MS = 3000;      // 발자국 수명
 const FOOT_INTERVAL = 320; // 발자국 찍는 간격
 const FOOT_SLOTS = 8;      // 플레이어당 발자국 버퍼
 
-const ADMIN_NAME = 'admin140531';   // 닉네임에 이걸 입력하면 관리자
+const ADMIN_NAMES = ['어드민140531', 'admin140531']; // 닉네임에 이걸 입력하면 관리자
 const ADMIN_DISPLAY = '이현석';      // 화면에 표시되는 관리자 이름
 const TEAM_A = '#ff5c5c';
 const TEAM_B = '#5c9cff';
@@ -251,7 +251,7 @@ nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') startGame(
 
 async function startGame() {
   const raw = (nameInput.value || '').trim();
-  isAdmin = raw === ADMIN_NAME;
+  isAdmin = ADMIN_NAMES.includes(raw);
   const name = isAdmin ? ADMIN_DISPLAY : (raw || 'Player');
 
   menu.classList.add('hidden');
