@@ -112,18 +112,75 @@ canvas#game { display: block; width: 100vw; height: 100vh; }
 .dpad.down { left: 57px; bottom: 0; }
 .dpad.left { left: 0; top: 57px; }
 .dpad.right { right: 0; top: 57px; }
-#catchBtn {
+#actionBtns {
   position: absolute;
-  right: 24px;
-  bottom: 48px;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
+  right: 20px;
+  bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
+#actionBtns button {
   border: none;
-  background: #ff4757;
   color: #fff;
-  font-size: 20px;
   font-weight: 800;
   pointer-events: auto;
+  border-radius: 50%;
 }
-#catchBtn:active { transform: scale(0.95); }
+#actionBtns button:active { transform: scale(0.95); }
+#catchBtn { width: 104px; height: 104px; background: #ff4757; font-size: 19px; }
+#runBtn { width: 72px; height: 72px; background: #2ecc71; font-size: 16px; }
+#crouchBtn { width: 72px; height: 72px; background: #8e44ad; font-size: 14px; }
+
+/* HUD bars */
+#bars { margin-top: 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.bar { display: flex; align-items: center; gap: 8px; }
+.bar-label { font-size: 11px; color: #ccd; width: 26px; }
+.bar-track {
+  width: 200px; height: 12px; border-radius: 999px;
+  background: rgba(0,0,0,0.55); overflow: hidden;
+}
+.bar-fill { height: 100%; width: 100%; transition: width 0.08s linear; }
+.bar-fill.sta { background: linear-gradient(90deg, #2ecc71, #a8ff78); }
+.crouch-info {
+  background: rgba(0,0,0,0.5); padding: 4px 12px; border-radius: 999px;
+  font-size: 12px; color: #d8c8ff;
+}
+
+/* Minigame banner */
+#banner {
+  position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+  z-index: 7; background: rgba(20,0,30,0.8); border: 1px solid #a060ff;
+  color: #fff; padding: 10px 22px; border-radius: 12px; font-weight: 700;
+  font-size: 16px; text-align: center; white-space: nowrap;
+}
+
+/* Admin panel */
+#admin {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 300px; z-index: 8;
+  background: rgba(10,10,22,0.94); border-left: 2px solid #3a3a66;
+  padding: 16px; overflow-y: auto; color: #eee;
+}
+.admin-head { font-size: 18px; font-weight: 800; color: #ffd23f; margin-bottom: 12px; }
+.admin-head #adminCount { font-size: 13px; color: #9af; font-weight: 600; }
+.admin-section {
+  margin: 14px 0 6px; font-size: 12px; color: #8ab; text-transform: uppercase;
+  letter-spacing: 0.5px; border-bottom: 1px solid #2a2a50; padding-bottom: 4px;
+}
+.player-list { max-height: 38vh; overflow-y: auto; font-size: 13px; }
+.player-row {
+  display: flex; align-items: center; gap: 8px; padding: 5px 6px;
+  border-radius: 8px; margin-bottom: 3px; background: rgba(255,255,255,0.04);
+}
+.player-dot { width: 12px; height: 12px; border-radius: 50%; flex: 0 0 auto; }
+.player-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.player-tag { font-size: 11px; color: #ffd23f; }
+.admin-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.admin-actions button {
+  padding: 9px 6px; border: none; border-radius: 8px; cursor: pointer;
+  background: #2a2a55; color: #fff; font-size: 13px; font-weight: 600;
+}
+.admin-actions button:hover { background: #3a3a75; }
+.admin-actions button:active { transform: scale(0.97); }
+.admin-status { margin-top: 12px; font-size: 12px; color: #9c9; min-height: 18px; }

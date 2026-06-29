@@ -16,10 +16,10 @@
       <input id="nameInput" type="text" placeholder="이름을 입력하세요" maxlength="16" autocomplete="off" />
       <button id="joinBtn">게임 시작</button>
       <ul class="rules">
-        <li>방향키 / WASD 로 이동</li>
-        <li>당신이 <b>술래</b>일 때, 다른 사람 몸에 닿은 채 <b>스페이스</b>(또는 CATCH 버튼)를 누르면 잡습니다</li>
-        <li>잡힌 사람은 그 자리에서 <b>10초</b> 기다린 뒤 새로운 술래가 됩니다</li>
-        <li>플레이어가 많아질수록 맵이 넓어집니다</li>
+        <li>이동: 방향키 / WASD · 달리기: <b>Shift</b>(스태미나 소모)</li>
+        <li>웅크리기: <b>C</b> — 5초간 투명(쿨타임 15초), 움직이면 <b>발자국</b>이 남아요</li>
+        <li>술래일 때 다른 사람에 닿은 채 <b>스페이스</b>로 잡기 → 잡힌 사람 10초 후 새 술래</li>
+        <li>미로의 <b>점(펠릿)</b>을 먹으며 도망치세요!</li>
       </ul>
     </div>
   </div>
@@ -29,7 +29,14 @@
 
   <div id="hud" class="hidden">
     <div id="status">연결 중…</div>
+    <div id="bars">
+      <div class="bar"><span class="bar-label">STA</span><div class="bar-track"><div id="staFill" class="bar-fill sta"></div></div></div>
+      <div id="crouchInfo" class="crouch-info">웅크리기 준비됨</div>
+    </div>
   </div>
+
+  <!-- Minigame banner -->
+  <div id="banner" class="hidden"></div>
 
   <!-- Touch controls -->
   <div id="touch" class="hidden">
@@ -39,7 +46,35 @@
       <button class="dpad right" data-dir="right">▶</button>
       <button class="dpad down" data-dir="down">▼</button>
     </div>
-    <button id="catchBtn">CATCH</button>
+    <div id="actionBtns">
+      <button id="runBtn">RUN</button>
+      <button id="crouchBtn">웅크리기</button>
+      <button id="catchBtn">CATCH</button>
+    </div>
+  </div>
+
+  <!-- Admin panel -->
+  <div id="admin" class="hidden">
+    <div class="admin-head">👑 관리자 패널 <span id="adminCount">0명</span></div>
+    <div class="admin-section">플레이어</div>
+    <div id="playerList" class="player-list"></div>
+    <div class="admin-section">전체 제어</div>
+    <div class="admin-actions">
+      <button data-cmd="gather">전원 집결</button>
+      <button data-cmd="scatter">전원 흩뿌리기</button>
+      <button data-cmd="freeze">전원 동결</button>
+      <button data-cmd="unfreeze">동결 해제</button>
+      <button data-cmd="teams">팀전 ON/OFF</button>
+      <button data-cmd="reset">리셋</button>
+    </div>
+    <div class="admin-section">미니게임</div>
+    <div class="admin-actions">
+      <button data-mini="tag">술래잡기</button>
+      <button data-mini="meteor">운석 피하기 ☄️</button>
+      <button data-mini="tiles">판 뒤집기 🟥🟦</button>
+      <button data-mini="stop">중지</button>
+    </div>
+    <div id="adminStatus" class="admin-status"></div>
   </div>
 
   <script type="module" src="client.js"></script>
