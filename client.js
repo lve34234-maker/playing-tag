@@ -205,7 +205,12 @@ const keyMap = {
   ArrowUp: 'up', KeyW: 'up', ArrowDown: 'down', KeyS: 'down',
   ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right',
 };
+function typingInField(e) {
+  const t = e.target;
+  return t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable);
+}
 window.addEventListener('keydown', (e) => {
+  if (typingInField(e)) return; // 입력창에 타이핑 중이면 게임 키 무시
   if (e.code === 'Space') { e.preventDefault(); doCatch(); return; }
   if (e.code === 'KeyC') { e.preventDefault(); doCrouch(); return; }
   if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') { input.run = true; return; }
@@ -213,6 +218,7 @@ window.addEventListener('keydown', (e) => {
   if (d) { e.preventDefault(); input[d] = true; }
 });
 window.addEventListener('keyup', (e) => {
+  if (typingInField(e)) return;
   if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') { input.run = false; return; }
   const d = keyMap[e.code];
   if (d) input[d] = false;
