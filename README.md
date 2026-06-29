@@ -1,8 +1,8 @@
-# 술래잡기 (Multiplayer Tag) 🏃 · Firebase 버전
+# 술래잡기 (Multiplayer Tag) 🏃
 
 팩맨처럼 생긴 미로에서 즐기는 간단한 실시간 멀티플레이 술래잡기 게임입니다.
-**서버 코드 없이** Firebase Realtime Database 로 실시간 동기화하고, Firebase
-Hosting 으로 인터넷에 공개합니다.
+**서버 코드 없이** Firebase Realtime Database 로 실시간 동기화하고, **GitHub Pages**
+로 인터넷에 자동 배포합니다.
 
 ## 특징
 
@@ -23,23 +23,28 @@ Hosting 으로 인터넷에 공개합니다.
 
 모바일/터치 기기에서는 화면 좌측의 방향 패드와 우측의 `CATCH` 버튼을 사용합니다.
 
-## 🔥 인터넷에 올리기 (Firebase 배포)
+## 🚀 인터넷에 올리기 (GitHub Pages 자동 배포)
+
+호스팅은 **GitHub Pages** 가 담당하고, 실시간 동기화만 **Firebase Realtime
+Database** 를 사용합니다. `main` 브랜치에 푸시하면 GitHub Actions
+(`.github/workflows/deploy-pages.yml`)가 `public/` 폴더를 **자동으로 배포**합니다.
+별도의 `firebase deploy` 가 필요 없습니다.
 
 > `firebase-config.js` 값을 채우기 전에는 페이지가 **오프라인 솔로 모드**로
-> 동작합니다(혼자 미로를 미리 볼 수 있음). 멀티플레이를 하려면 아래 설정이 필요합니다.
+> 동작합니다(혼자 미로를 미리 볼 수 있음). 멀티플레이를 하려면 아래 1~2단계가 필요합니다.
 
-### 1. Firebase 프로젝트 만들기
+### 1. Firebase Realtime Database 만들기 (멀티플레이 동기화용)
+
+> Firebase 는 *호스팅이 아니라* 실시간 DB 용도로만 씁니다.
 
 1. <https://console.firebase.google.com> 접속 → **프로젝트 추가**
-2. **빌드 → Realtime Database → 데이터베이스 만들기**
-   - 위치 선택 후 **테스트 모드**로 시작 (규칙은 이 레포의 `database.rules.json` 로 배포됩니다)
-3. **프로젝트 설정(⚙️) → 일반 → 내 앱 → 웹 앱(`</>`) 추가** 후
-   표시되는 `firebaseConfig` 값을 복사
+2. **빌드 → Realtime Database → 데이터베이스 만들기** → **테스트 모드**로 시작
+   - (선택) 보안 규칙은 이 레포의 `database.rules.json` 내용을 콘솔의 **규칙** 탭에 붙여넣으면 됩니다.
+3. **프로젝트 설정(⚙️) → 일반 → 내 앱 → 웹 앱(`</>`) 추가** 후 `firebaseConfig` 값을 복사
 
-### 2. 설정값 채우기
+### 2. 설정값 채우기 + 커밋
 
-`public/firebase-config.js` 를 열어 복사한 값을 붙여넣습니다
-(특히 `databaseURL` 을 꼭 포함하세요):
+`public/firebase-config.js` 에 복사한 값을 붙여넣습니다 (특히 `databaseURL` 포함):
 
 ```js
 export const firebaseConfig = {
@@ -51,24 +56,25 @@ export const firebaseConfig = {
 };
 ```
 
-그리고 `.firebaserc` 의 `YOUR_FIREBASE_PROJECT_ID` 를 본인 **프로젝트 ID**로 바꿉니다.
-
-### 3. 배포
+그리고 변경사항을 `main` 에 커밋/푸시합니다:
 
 ```bash
-# Firebase CLI 설치(최초 1회) 및 로그인
-npm install -g firebase-tools
-firebase login
-
-# 호스팅 + DB 규칙 배포
-firebase deploy
+git add public/firebase-config.js
+git commit -m "Add Firebase config"
+git push origin main
 ```
 
-배포가 끝나면 `https://내프로젝트.web.app` 같은 **공개 주소**가 나옵니다.
-그 링크를 친구들에게 공유하면 같은 미로에서 함께 술래잡기를 할 수 있어요. 🎮
+### 3. GitHub Pages 켜기 (최초 1회)
 
-> `firebase login` 은 본인 Google 계정 인증이 필요하므로, 이 마지막 배포 단계는
-> 직접 실행해 주셔야 합니다.
+GitHub 레포 → **Settings → Pages → Build and deployment → Source** 를
+**"GitHub Actions"** 로 설정합니다.
+
+그 다음부터는 `main` 에 푸시할 때마다 자동 배포되고, 완료되면
+**`https://<사용자명>.github.io/playing-tag/`** 주소로 누구나 접속할 수 있습니다. 🎮
+(배포 상태는 레포의 **Actions** 탭에서 볼 수 있어요.)
+
+> 참고: Firebase 콘솔의 **Authentication → Settings → 승인된 도메인** 에
+> `<사용자명>.github.io` 를 추가해야 할 수도 있습니다(필요 시).
 
 ## 게임 규칙
 
@@ -84,9 +90,11 @@ firebase deploy
   (렌더링, 입력, 카메라, 충돌, 잡기 판정). 미로는 인원수로부터 결정적으로 생성되어
   모든 클라이언트가 동일한 맵을 봅니다.
 - `public/firebase-config.js` — 본인 Firebase 프로젝트 설정값.
-- `firebase.json` — Firebase Hosting + Realtime Database 설정.
-- `database.rules.json` — Realtime Database 보안 규칙.
-- `.firebaserc` — 기본 프로젝트 지정.
+- `.github/workflows/deploy-pages.yml` — `main` 푸시 시 `public/` 를 GitHub Pages 로
+  자동 배포하는 워크플로.
+- `database.rules.json` — Realtime Database 보안 규칙(콘솔에 붙여넣어 사용).
+- `firebase.json`, `.firebaserc` — (선택) `firebase deploy` 로 Firebase Hosting 을
+  쓰고 싶을 때를 위한 설정. GitHub Pages 만 쓸 경우 무시해도 됩니다.
 
 ### 보안 규칙에 대한 참고
 
