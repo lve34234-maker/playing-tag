@@ -27,7 +27,7 @@
 
 호스팅은 **GitHub Pages** 가 담당하고, 실시간 동기화만 **Firebase Realtime
 Database** 를 사용합니다. `main` 브랜치에 푸시하면 GitHub Actions
-(`.github/workflows/deploy-pages.yml`)가 `public/` 폴더를 **자동으로 배포**합니다.
+(`.github/workflows/deploy-pages.yml`)가 저장소 루트를 **자동으로 배포**합니다.
 별도의 `firebase deploy` 가 필요 없습니다.
 
 > `firebase-config.js` 값을 채우기 전에는 페이지가 **오프라인 솔로 모드**로
@@ -44,7 +44,7 @@ Database** 를 사용합니다. `main` 브랜치에 푸시하면 GitHub Actions
 
 ### 2. 설정값 채우기 + 커밋
 
-`public/firebase-config.js` 에 복사한 값을 붙여넣습니다 (특히 `databaseURL` 포함):
+`firebase-config.js` 에 복사한 값을 붙여넣습니다 (특히 `databaseURL` 포함):
 
 ```js
 export const firebaseConfig = {
@@ -59,7 +59,7 @@ export const firebaseConfig = {
 그리고 변경사항을 `main` 에 커밋/푸시합니다:
 
 ```bash
-git add public/firebase-config.js
+git add firebase-config.js
 git commit -m "Add Firebase config"
 git push origin main
 ```
@@ -86,11 +86,11 @@ GitHub 레포 → **Settings → Pages → Build and deployment → Source** 를
 
 ## 구조
 
-- `public/index.html`, `public/client.js`, `public/style.css` — 캔버스 기반 클라이언트
+- `index.html`, `client.js`, `style.css` — 캔버스 기반 클라이언트
   (렌더링, 입력, 카메라, 충돌, 잡기 판정). 미로는 인원수로부터 결정적으로 생성되어
   모든 클라이언트가 동일한 맵을 봅니다.
-- `public/firebase-config.js` — 본인 Firebase 프로젝트 설정값.
-- `.github/workflows/deploy-pages.yml` — `main` 푸시 시 `public/` 를 GitHub Pages 로
+- `firebase-config.js` — 본인 Firebase 프로젝트 설정값.
+- `.github/workflows/deploy-pages.yml` — `main` 푸시 시 사이트를 GitHub Pages 로
   자동 배포하는 워크플로.
 - `database.rules.json` — Realtime Database 보안 규칙(콘솔에 붙여넣어 사용).
 - `firebase.json`, `.firebaserc` — (선택) `firebase deploy` 로 Firebase Hosting 을
