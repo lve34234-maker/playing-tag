@@ -1,16 +1,10 @@
 {
   "name": "playing-tag",
-  "version": "1.0.0",
-  "description": "A simple multiplayer top-down tag game on a Pac-Man style maze.",
-  "main": "server.js",
-  "type": "commonjs",
+  "version": "2.0.0",
+  "description": "A serverless multiplayer top-down tag game on a Pac-Man style maze, synced with Firebase Realtime Database and hosted on Firebase Hosting.",
   "scripts": {
-    "start": "node server.js"
+    "serve": "npx firebase-tools serve",
+    "deploy": "npx firebase-tools deploy"
   },
-  "engines": {
-    "node": ">=18"
-  },
-  "dependencies": {
-    "ws": "^8.18.0"
-  }
+  "license": "MIT"
 }
