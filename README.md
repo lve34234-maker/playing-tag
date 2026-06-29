@@ -40,6 +40,40 @@ npm start
 4. 그 사이 기존 술래는 자유로워지고, **10초가 지나면 잡혔던 사람이 새 술래**가 됩니다.
 5. 이 과정을 반복하며 계속 즐기면 됩니다!
 
+## 인터넷에 배포하기 (무료)
+
+이 게임은 상시 실행되는 Node.js + WebSocket 서버가 필요하므로 GitHub Pages
+같은 정적 호스팅으로는 동작하지 않습니다. 아래 호스팅 중 하나에 올리면
+누구나 접속할 수 있는 공개 URL이 생깁니다. WebSocket을 지원하고 `PORT`
+환경변수를 자동으로 주입하므로 별도 설정 없이 바로 동작합니다.
+
+### 방법 1) Render (추천 · 카드/CLI 불필요)
+
+이 레포에는 `render.yaml`(Blueprint)이 포함되어 있어 클릭 몇 번이면 됩니다.
+
+1. <https://render.com> 가입 후 GitHub 계정 연결
+2. **New → Blueprint** 선택
+3. 이 레포(`playing-tag`)를 고르면 `render.yaml`을 자동 인식 → **Apply**
+4. 배포가 끝나면 `https://playing-tag-xxxx.onrender.com` 같은 공개 주소가 생깁니다
+
+> 무료 플랜은 일정 시간 접속이 없으면 서버가 잠들고, 다음 접속 때 다시 깨어나는 데
+> 몇 초 걸릴 수 있습니다.
+
+### 방법 2) Railway
+
+1. <https://railway.app> 가입 → **New Project → Deploy from GitHub repo**
+2. 이 레포 선택 (Node 앱으로 자동 인식, `Procfile` 사용)
+3. 생성된 도메인에서 **Settings → Networking → Generate Domain** 으로 공개 URL 발급
+
+### 방법 3) Docker (Fly.io 등 컨테이너 호스팅)
+
+레포의 `Dockerfile` 로 어디서든 컨테이너로 띄울 수 있습니다.
+
+```bash
+docker build -t playing-tag .
+docker run -p 3000:3000 playing-tag
+```
+
 ## 구조
 
 - `server.js` — Node.js HTTP + WebSocket 서버. 게임 상태, 미로 생성, 충돌/잡기 판정을 담당합니다 (서버 권위 방식).

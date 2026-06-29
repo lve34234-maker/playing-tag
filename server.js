@@ -300,6 +300,6 @@ wss.on('connection', (ws) => {
 
 setInterval(tick, TICK_MS);
 
-server.listen(PORT, () => {
-  console.log(`Tag game running at http://localhost:${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Tag game listening on port ${PORT}`);
 });
