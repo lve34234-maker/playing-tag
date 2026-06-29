@@ -26,9 +26,9 @@
 ## 🚀 인터넷에 올리기 (GitHub Pages 자동 배포)
 
 호스팅은 **GitHub Pages** 가 담당하고, 실시간 동기화만 **Firebase Realtime
-Database** 를 사용합니다. `main` 브랜치에 푸시하면 GitHub Actions
-(`.github/workflows/deploy-pages.yml`)가 저장소 루트를 **자동으로 배포**합니다.
-별도의 `firebase deploy` 가 필요 없습니다.
+Database** 를 사용합니다. 게임 파일(`index.html` 등)이 저장소 **루트**에 있고
+`.nojekyll` 가 있어서, GitHub Pages 가 푸시할 때마다 루트의 `index.html` 을
+홈페이지로 **자동 배포**합니다. 별도의 `firebase deploy` 가 필요 없습니다.
 
 > `firebase-config.js` 값을 채우기 전에는 페이지가 **오프라인 솔로 모드**로
 > 동작합니다(혼자 미로를 미리 볼 수 있음). 멀티플레이를 하려면 아래 1~2단계가 필요합니다.
@@ -66,15 +66,12 @@ git push origin main
 
 ### 3. GitHub Pages 켜기 (최초 1회)
 
-GitHub 레포 → **Settings → Pages → Build and deployment → Source** 를
-**"GitHub Actions"** 로 설정합니다.
+GitHub 레포 → **Settings → Pages → Build and deployment** 에서
+**Source = `Deploy from a branch`**, **Branch = `main` / `/ (root)`** 로 설정합니다.
 
 그 다음부터는 `main` 에 푸시할 때마다 자동 배포되고, 완료되면
 **`https://<사용자명>.github.io/playing-tag/`** 주소로 누구나 접속할 수 있습니다. 🎮
-(배포 상태는 레포의 **Actions** 탭에서 볼 수 있어요.)
-
-> 참고: Firebase 콘솔의 **Authentication → Settings → 승인된 도메인** 에
-> `<사용자명>.github.io` 를 추가해야 할 수도 있습니다(필요 시).
+(배포 상태는 레포의 **Actions** 탭의 "pages build and deployment" 에서 볼 수 있어요.)
 
 ## 게임 규칙
 
@@ -90,8 +87,7 @@ GitHub 레포 → **Settings → Pages → Build and deployment → Source** 를
   (렌더링, 입력, 카메라, 충돌, 잡기 판정). 미로는 인원수로부터 결정적으로 생성되어
   모든 클라이언트가 동일한 맵을 봅니다.
 - `firebase-config.js` — 본인 Firebase 프로젝트 설정값.
-- `.github/workflows/deploy-pages.yml` — `main` 푸시 시 사이트를 GitHub Pages 로
-  자동 배포하는 워크플로.
+- `.nojekyll` — GitHub Pages 가 Jekyll 처리 없이 파일을 그대로 서빙하도록 합니다.
 - `database.rules.json` — Realtime Database 보안 규칙(콘솔에 붙여넣어 사용).
 - `firebase.json`, `.firebaserc` — (선택) `firebase deploy` 로 Firebase Hosting 을
   쓰고 싶을 때를 위한 설정. GitHub Pages 만 쓸 경우 무시해도 됩니다.
