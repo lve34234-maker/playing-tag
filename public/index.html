@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>술래잡기 · Tag</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>🏃</text></svg>" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <!-- Join screen -->
+  <div id="menu">
+    <div class="card">
+      <h1>술래잡기 🏃</h1>
+      <p class="sub">팩맨 미로에서 즐기는 술래잡기</p>
+      <input id="nameInput" type="text" placeholder="이름을 입력하세요" maxlength="16" autocomplete="off" />
+      <button id="joinBtn">게임 시작</button>
+      <ul class="rules">
+        <li>방향키 / WASD 로 이동</li>
+        <li>당신이 <b>술래</b>일 때, 다른 사람 몸에 닿은 채 <b>스페이스</b>(또는 CATCH 버튼)를 누르면 잡습니다</li>
+        <li>잡힌 사람은 그 자리에서 <b>10초</b> 기다린 뒤 새로운 술래가 됩니다</li>
+        <li>플레이어가 많아질수록 맵이 넓어집니다</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Game -->
+  <canvas id="game"></canvas>
+
+  <div id="hud" class="hidden">
+    <div id="status">연결 중…</div>
+  </div>
+
+  <!-- Touch controls -->
+  <div id="touch" class="hidden">
+    <div id="pad">
+      <button class="dpad up" data-dir="up">▲</button>
+      <button class="dpad left" data-dir="left">◀</button>
+      <button class="dpad right" data-dir="right">▶</button>
+      <button class="dpad down" data-dir="down">▼</button>
+    </div>
+    <button id="catchBtn">CATCH</button>
+  </div>
+
+  <script src="/client.js"></script>
+</body>
+</html>

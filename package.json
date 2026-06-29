@@ -1,0 +1,13 @@
+{
+  "name": "playing-tag",
+  "version": "1.0.0",
+  "description": "A simple multiplayer top-down tag game on a Pac-Man style maze.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
