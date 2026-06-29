@@ -1,22 +1,20 @@
 // ============================================================================
 //  Firebase 설정
-//  여기에 본인 Firebase 프로젝트의 설정값을 붙여넣으세요.
 //
-//  Firebase 콘솔(https://console.firebase.google.com) →
-//    프로젝트 설정(⚙️) → 일반 → 내 앱 → "웹 앱" 의 SDK 설정 및 구성에서
-//    아래 값들을 복사할 수 있습니다.
+//  이 값들은 Firebase 웹 앱에 공개적으로 포함되는 클라이언트 설정값입니다
+//  (비밀 키가 아닙니다). 데이터 보호는 Realtime Database 보안 규칙으로 합니다.
 //
-//  ⚠️ Realtime Database 를 만들었다면 databaseURL 도 꼭 채워주세요.
-//     (예: https://내프로젝트-default-rtdb.firebaseio.com)
-//
-//  값을 채우기 전에는 게임이 "오프라인 솔로 모드"로 동작합니다(혼자 미로 미리보기).
+//  Realtime Database 위치: asia-southeast1 (싱가포르)
 // ============================================================================
 export const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-  projectId: "YOUR_PROJECT",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyD5ODI_9Hp038GgEl3r5Qg1tmLnrjx2LZM",
+  authDomain: "gen-lang-client-0055642025.firebaseapp.com",
+  databaseURL: "https://gen-lang-client-0055642025-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "gen-lang-client-0055642025",
+  storageBucket: "gen-lang-client-0055642025.firebasestorage.app",
+  messagingSenderId: "469310119181",
+  appId: "1:469310119181:web:6fef71a25fe7d6eff5e444",
+  measurementId: "G-NV7XTKVBZW",
 };
 
 // 설정값이 실제로 채워졌는지 검사합니다 (placeholder 여부 확인).
